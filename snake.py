@@ -42,7 +42,7 @@ def remove_tail():
  
 snake.direction='up' #variable for up string :t we have a variable we can change the value of in the functiono make sure
 UP_EDGE=250
-DOWN_EDGE=-25
+DOWN_EDGE=-250
 RIGHT_EDGE=400
 LEFT_EDGE=-400
 def up(): #new function called up
@@ -74,7 +74,7 @@ turtle.listen() #when i press on one of those keys ypou listen and do the next f
 turtle.register_shape('trash.gif')#we add a trash pic to the folder and it adds it tp the turtle window
 food=turtle.clone()
 food.shape('trash.gif')
-food_pos=[(100,100),(-100,100),(-100,-100),(100,-100)]
+food_pos=[]
 food_stamp=[]
 for this_food_pos in food_pos:
     food.penup()
@@ -119,18 +119,49 @@ def move_snake():
         food_index=food_pos.index(snake.pos()) #the position where thefood is now is same as the position of the snake position
         food.clearstamp(food_stamp[food_index]) #removes  the current food stamp from the list
         food_pos.pop(food_index) #the current position will popon the shell and get deleted from the list
-        food_stamps.pop(food_index)
+        food_stamp.pop(food_index)
         print('you have eaten the food')
+        id3=food.pos()
+        stamp_list.append(id3[-1])
+        print('you have grown a bit')
+    if snake.pos() in pos_list:
+        print('you thouched')
+        quit()
+        
+        
+        
     turtle.ontimer(move_snake,TIME_STEP) #keeps moving once starting
     #two argunmwnts-inputs, waits for an amount of time AND CALLS OUR MOVE_SNAKE FUNCTION
-
+    new_stamp()
+    remove_tail()
+    if len (food_stamp)<=6:
+        make_food()
+    #8if pos_list[0]==pos_list[1: ]:
+       #8 print('your head touched your body')
+        #8quit()
+   #8else:
+       #8 print('didnt touch the head')
+       
+    
 def make_food():
-    min_x=int(SIZE_X/2/SQUARE_SIZE)+1
+    print('lets make food')
+    min_x=-int(SIZE_X/2/SQUARE_SIZE)+1
     max_x=int(SIZE_X/2/SQUARE_SIZE)-1
     min_y=-int(SIZE_Y/2/SQUARE_SIZE)+1
     max_y=int(SIZE_Y/2/SQUARE_SIZE)-1
     food_x = random.randint(min_x,max_x)*SQUARE_SIZE
-    food_y = random.randint(min_y,max_y)*SQUARE_SIZE
+    food_y = random.randint(min_y,max_y)*SQUARE_SIZE #picks randomly a number between the values we set before for point sthat are on the screen
+    food.goto(food_x,food_y)
+    food_pos.append((food_x,food_y))
+    foodid2=food.stamp()
+    food_stamp.append(foodid2)
+    
+       
+
+
+move_snake()    
+
+    
 
 
     
@@ -138,11 +169,10 @@ def make_food():
     
         
     
-    new_stamp()
-    remove_tail()
+    
 
 
-move_snake()
+
 
         
         
