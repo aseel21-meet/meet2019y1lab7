@@ -41,24 +41,28 @@ def remove_tail():
     pos_list.pop(0)             #we delte the first position that was stored in the list-the last tail -pops on shell
  
 snake.direction='up' #variable for up string :t we have a variable we can change the value of in the functiono make sure
+UP_EDGE=250
+DOWN_EDGE=-25
+RIGHT_EDGE=400
+LEFT_EDGE=-400
 def up(): #new function called up
     snake.direction="up" #change your direction to up
-    move_snake() # the drawing-start moving up
+    #move_snake() # the drawing-start moving up
     print('you pressed the up button')
     
 def down(): #new function called up
     snake.direction="down" #change your direction to down
-    move_snake() # the drawing-start moving down
+    #move_snake() # the drawing-start moving down
     print('you pressed the down button')
     
 def left(): #new function called left
     snake.direction="left" #change your direction to left
-    move_snake() #the drawing-start moving to the left
+    #move_snake() #the drawing-start moving to the left
     print('you pressed the left button')
     
 def right(): #new function called right
     snake.direction="right" #change your direction to the right
-    move_snake() #updeta the drawing-start moving right
+    #move_snake() #updeta the drawing-start moving right
     print('you pressed the right button')
 
 turtle.onkeypress(up,'Up')#when we press the key that the comouter knows as the string up you do the function that is called up
@@ -66,6 +70,19 @@ turtle.onkeypress(down,'Down')
 turtle.onkeypress(left,'Left')
 turtle.onkeypress(right,'Right')
 turtle.listen() #when i press on one of those keys ypou listen and do the next functions
+
+turtle.register_shape('trash.gif')#we add a trash pic to the folder and it adds it tp the turtle window
+food=turtle.clone()
+food.shape('trash.gif')
+food_pos=[(100,100),(-100,100),(-100,-100),(100,-100)]
+food_stamp=[]
+for this_food_pos in food_pos:
+    food.penup()
+    food.goto(this_food_pos)
+    foodid1=food.stamp()
+    food_stamp.append(foodid1)
+    
+    
 
 def move_snake():
     my_pos=snake.pos() #the position where i am now is stored here in the function only)
@@ -82,7 +99,51 @@ def move_snake():
         print('you moved left')
     elif snake.direction=='right':
         snake.goto(x_pos+SQUARE_SIZE,y_pos)
+    new_pos=snake.pos()
+    new_x_pos=new_pos[0]
+    new_y_pos=new_pos[1]
+    if new_x_pos==UP_EDGE:
+        print('you hit the up edge,geme over')
+        quit()
+    elif new_x_pos==DOWN_EDGE:
+        print('you hit the down edge,geme over')
+        quit()
+    elif new_x_pos==RIGHT_EDGE:
+        print('you hit the right edge,geme over')
+        quit()
+    elif new_x_pos==LEFT_EDGE:
+        print('you hit the left edge,geme over')
+        quit() #closes the program
+
+    if snake.pos() in food_pos:
+        food_index=food_pos.index(snake.pos()) #the position where thefood is now is same as the position of the snake position
+        food.clearstamp(food_stamp[food_index]) #removes  the current food stamp from the list
+        food_pos.pop(food_index) #the current position will popon the shell and get deleted from the list
+        food_stamps.pop(food_index)
+        print('you have eaten the food')
+    turtle.ontimer(move_snake,TIME_STEP) #keeps moving once starting
+    #two argunmwnts-inputs, waits for an amount of time AND CALLS OUR MOVE_SNAKE FUNCTION
+
+def make_food():
+    min_x=int(SIZE_X/2/SQUARE_SIZE)+1
+    max_x=int(SIZE_X/2/SQUARE_SIZE)-1
+    min_y=-int(SIZE_Y/2/SQUARE_SIZE)+1
+    max_y=int(SIZE_Y/2/SQUARE_SIZE)-1
+    food_x = random.randint(min_x,max_x)*SQUARE_SIZE
+    food_y = random.randint(min_y,max_y)*SQUARE_SIZE
+
+
+    
+    
+    
+        
+    
+    new_stamp()
+    remove_tail()
+
+
 move_snake()
+
         
         
     
