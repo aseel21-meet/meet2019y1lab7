@@ -5,17 +5,20 @@ turtle.tracer(1,0)#move more smootly
 
 SIZE_X=1000
 SIZE_Y=1000
-#turtle.setup(SIZE_X,SIZE_Y)#windo size
+turtle.setup(SIZE_X,SIZE_Y)#windo size
 
 SIZE_X_game=600
 SIZE_Y_game=600
-turtle.setup(SIZE_X_game,SIZE_Y_game)
+#turtle.setup(SIZE_X_game,SIZE_Y_game)
 
 turtle.penup() #not darwing
 
 SQUARE_SIZE=20 #variables for turtle apearence setting
 START_LENGTH=9
 TIME_STEP=100
+score=0
+#turtle.register_shape('sand.gif')
+#turtle.bgpic('sand.gif')
 
 pos_list=[]
 stamp_list=[]
@@ -43,14 +46,16 @@ def remove_tail():
     old_stamp=stamp_list.pop(0) #the last piece of tail-our first stamp will show in the shell and then get deleted fromthe list
     snake.clearstamp(old_stamp) #the stamp we deleted from the list will not aper on turtle window anymore
     pos_list.pop(0)             #we delte the first position that was stored in the list-the last tail -pops on shellscore=0
-def add_score():
-    global score
-    score +=1
-    scoring=turtle.Turtle()
-    scoring.penup()
-    scorinng.goto(0,-400)
-    scoring.pendown()
-    scoring.write(score,align='center',move=False,font=('arial',18,'normal'))
+
+        
+    
+    #global score
+    #score +=1
+    #scoring=turtle.Turtle()
+    #scoring.penup()
+    #scorinng.goto(0,-400)
+    #scoring.pendown()
+    #scoring.write(score,align='center',move=False,font=('arial',18,'normal'))
 
 
 
@@ -117,6 +122,13 @@ for this_food_pos in food_pos:
     foodid1=food.stamp()
     food_stamp.append(foodid1)
 
+    
+scoring=turtle.Turtle()
+scoring.penup()
+scoring.goto(0,-400)
+scoring.pendown()
+scoring.hideturtle()
+
 def move_snake():
     my_pos=snake.pos() #the position where i am now is stored here in the function only)
     x_pos=my_pos[0]
@@ -157,9 +169,29 @@ def move_snake():
         id3=food.pos()
         stamp_list.append(id3[-1])
         print('you have grown a bit')
+        #challenge
+        
+        
+                #for score in range ():
+        
+        global score
+        score +=1
+        scoring.clear()
+        #scoring.color('green')
+        scoring.write(score,align='center',move=False,font=('Arial',18,'normal'))
+        #scoring.clear()
+
+        print('you scored yeyyyyyyyyyyyyyyyyy')
+        #scoring.color(turtle.bgcolor())
+
+        #scoring.clear()
+
+    
+        
     if snake.pos() in pos_list:
         print('you thouched')
         quit()
+        
         
         
         
