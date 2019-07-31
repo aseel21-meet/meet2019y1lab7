@@ -25,12 +25,18 @@ pos_list=[]
 stamp_list=[]
 food_pos=[]
 food_stamp=[] #making new lists=organizing
-colors_list=['cyan','purple','white','blue']
+colors_list=['cyan','purple','blue','pink','grey']
+tail_color=['yellow','orange','brown']
+bg_color=['lavender','sky blue']
 
 snake=turtle.clone() #starts at (x,y)were the original turtle is
 snake.shape('circle')
 
 turtle.hideturtle() #original turtle invisible on screen
+
+def rainbow ():
+    for color in stamp_list:
+       snake.color(random.choice(colors_list))  
 
 def new_stamp():
     snake_pos=snake.pos() # the  current position  is now in this variable
@@ -42,8 +48,13 @@ for num_piece in range(START_LENGTH): #anything defined  in a function cant be u
     y_pos=snake.pos()[1]
     x_pos +=SQUARE_SIZE #20 units is added to the value of the x cor
     snake.goto(x_pos,y_pos)
-    snake.color(random.choice(colors_list))
+    #snake.color(random.choice(colors_list))
+    rainbow()
+    print('you changed color')
     new_stamp()
+
+
+
     
 #part 2
 def remove_tail():
@@ -172,6 +183,7 @@ def move_snake():
         print('you hit the left edge,geme over')
         looser()
         quit() #closes the program
+    rainbow()
 
     if snake.pos() in food_pos:
         food_index=food_pos.index(snake.pos()) #the position where thefood is now is same as the position of the snake position
@@ -181,7 +193,18 @@ def move_snake():
         print('you have eaten the food')
         id3=food.pos()
         stamp_list.append(id3[-1])
-        snake.color(random.choice(colors_list))
+        #snake.color(random.choice(colors_list))
+        for new_tail in tail_color:
+            snake.color(random.choice(tail_color))
+        global TIME_STEP
+        if TIME_STEP>=40:
+            TIME_STEP-=10
+            print('YOU INCRESED YOUR SPEED')
+        else:
+            TIME_STEP=100
+            
+        
+            
         print('you have grown a bit')
         #challenge
         
@@ -197,6 +220,7 @@ def move_snake():
 
         print('you scored yeyyyyyyyyyyyyyyyyy')
         #scoring.color(turtle.bgcolor())
+        turtle.bgcolor(random.choice(bg_color))
 
         #scoring.clear()
 
