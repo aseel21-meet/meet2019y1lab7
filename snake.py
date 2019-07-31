@@ -19,14 +19,16 @@ TIME_STEP=100
 score=0
 #turtle.register_shape('sand.gif')
 #turtle.bgpic('sand.gif')
+turtle.bgcolor('lavender')
 
 pos_list=[]
 stamp_list=[]
 food_pos=[]
 food_stamp=[] #making new lists=organizing
+colors_list=['cyan','purple','white','blue']
 
 snake=turtle.clone() #starts at (x,y)were the original turtle is
-snake.shape('square')
+snake.shape('circle')
 
 turtle.hideturtle() #original turtle invisible on screen
 
@@ -40,12 +42,20 @@ for num_piece in range(START_LENGTH): #anything defined  in a function cant be u
     y_pos=snake.pos()[1]
     x_pos +=SQUARE_SIZE #20 units is added to the value of the x cor
     snake.goto(x_pos,y_pos)
+    snake.color(random.choice(colors_list))
     new_stamp()
+    
 #part 2
 def remove_tail():
     old_stamp=stamp_list.pop(0) #the last piece of tail-our first stamp will show in the shell and then get deleted fromthe list
     snake.clearstamp(old_stamp) #the stamp we deleted from the list will not aper on turtle window anymore
     pos_list.pop(0)             #we delte the first position that was stored in the list-the last tail -pops on shellscore=0
+
+
+def looser():
+    looser=turtle.Turtle()
+    looser.hideturtle()
+    looser.write('looser',align='center',move=False,font=('Arial',36,'normal'))
 
         
     
@@ -77,7 +87,7 @@ border.goto(300,-300)
 border.penup()
 border.goto(0,400)
 border.pendown
-border.color('green')
+border.color('light blue')
 border.write('snake game',align='center',move=False,font=("arial",18,'normal'))
 border.hideturtle()
 
@@ -149,15 +159,18 @@ def move_snake():
     new_y_pos=new_pos[1]
     if new_x_pos==UP_EDGE:
         print('you hit the up edge,geme over')
+        looser()         
         quit()
     elif new_x_pos==DOWN_EDGE:
         print('you hit the down edge,geme over')
         quit()
     elif new_x_pos==RIGHT_EDGE:
         print('you hit the right edge,geme over')
+        looser()         
         quit()
     elif new_x_pos==LEFT_EDGE:
         print('you hit the left edge,geme over')
+        looser()
         quit() #closes the program
 
     if snake.pos() in food_pos:
@@ -168,6 +181,7 @@ def move_snake():
         print('you have eaten the food')
         id3=food.pos()
         stamp_list.append(id3[-1])
+        snake.color(random.choice(colors_list))
         print('you have grown a bit')
         #challenge
         
@@ -190,6 +204,7 @@ def move_snake():
         
     if snake.pos() in pos_list:
         print('you thouched')
+        looser()         
         quit()
         
         
