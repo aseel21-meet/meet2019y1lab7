@@ -3,9 +3,13 @@ import random #later
 
 turtle.tracer(1,0)#move more smootly
 
-SIZE_X=800
-SIZE_Y=500
-turtle.setup(SIZE_X,SIZE_Y)#windo size
+SIZE_X=1000
+SIZE_Y=1000
+#turtle.setup(SIZE_X,SIZE_Y)#windo size
+
+SIZE_X_game=600
+SIZE_Y_game=600
+turtle.setup(SIZE_X_game,SIZE_Y_game)
 
 turtle.penup() #not darwing
 
@@ -38,13 +42,41 @@ for num_piece in range(START_LENGTH): #anything defined  in a function cant be u
 def remove_tail():
     old_stamp=stamp_list.pop(0) #the last piece of tail-our first stamp will show in the shell and then get deleted fromthe list
     snake.clearstamp(old_stamp) #the stamp we deleted from the list will not aper on turtle window anymore
-    pos_list.pop(0)             #we delte the first position that was stored in the list-the last tail -pops on shell
- 
+    pos_list.pop(0)             #we delte the first position that was stored in the list-the last tail -pops on shellscore=0
+def add_score():
+    global score
+    score +=1
+    scoring=turtle.Turtle()
+    scoring.penup()
+    scorinng.goto(0,-400)
+    scoring.pendown()
+    scoring.write(score,align='center',move=False,font=('arial',18,'normal'))
+
+
+
+
 snake.direction='up' #variable for up string :t we have a variable we can change the value of in the functiono make sure
-UP_EDGE=250
-DOWN_EDGE=-250
-RIGHT_EDGE=400
-LEFT_EDGE=-400
+UP_EDGE=300
+DOWN_EDGE=-300
+RIGHT_EDGE=300
+LEFT_EDGE=-300
+
+border=turtle.Turtle()
+border.penup()
+border.goto(300,-300)
+border.pendown()
+border.goto(300,300)
+border.goto(-300,300)
+border.goto(-300,-300)
+border.goto(300,-300)
+border.penup()
+border.goto(0,400)
+border.pendown
+border.color('green')
+border.write('snake game',align='center',move=False,font=("arial",18,'normal'))
+border.hideturtle()
+
+
 def up(): #new function called up
     snake.direction="up" #change your direction to up
     #move_snake() # the drawing-start moving up
@@ -65,6 +97,9 @@ def right(): #new function called right
     #move_snake() #updeta the drawing-start moving right
     print('you pressed the right button')
 
+
+
+
 turtle.onkeypress(up,'Up')#when we press the key that the comouter knows as the string up you do the function that is called up
 turtle.onkeypress(down,'Down')
 turtle.onkeypress(left,'Left')
@@ -81,8 +116,6 @@ for this_food_pos in food_pos:
     food.goto(this_food_pos)
     foodid1=food.stamp()
     food_stamp.append(foodid1)
-    
-    
 
 def move_snake():
     my_pos=snake.pos() #the position where i am now is stored here in the function only)
@@ -145,10 +178,16 @@ def move_snake():
     
 def make_food():
     print('lets make food')
-    min_x=-int(SIZE_X/2/SQUARE_SIZE)+1
-    max_x=int(SIZE_X/2/SQUARE_SIZE)-1
-    min_y=-int(SIZE_Y/2/SQUARE_SIZE)+1
-    max_y=int(SIZE_Y/2/SQUARE_SIZE)-1
+   # min_x=-int(SIZE_X/2/SQUARE_SIZE)+1
+   # max_x=int(SIZE_X/2/SQUARE_SIZE)-1
+    #min_y=-int(SIZE_Y/2/SQUARE_SIZE)+1
+   # max_y=int(SIZE_Y/2/SQUARE_SIZE)-1
+    
+    min_x=-int(SIZE_X_game/2/SQUARE_SIZE)+1
+    max_x=int(SIZE_X_game/2/SQUARE_SIZE)-1
+    min_y=-int(SIZE_Y_game/2/SQUARE_SIZE)+1
+    max_y=int(SIZE_Y_game/2/SQUARE_SIZE)-1
+    
     food_x = random.randint(min_x,max_x)*SQUARE_SIZE
     food_y = random.randint(min_y,max_y)*SQUARE_SIZE #picks randomly a number between the values we set before for point sthat are on the screen
     food.goto(food_x,food_y)
@@ -159,8 +198,20 @@ def make_food():
        
 
 
-move_snake()    
+move_snake()
 
+
+
+
+#score=0
+#def add_score():
+    #global score
+    #score +=1
+    #scoring=turtle.Turtle()
+    #scoring.penup()
+    #scorinng.goto(0,-400)
+    #scoring.pendown()
+    #scoring.write(score,align='center',move=False,font=('arial',18,'normal'))
     
 
 
